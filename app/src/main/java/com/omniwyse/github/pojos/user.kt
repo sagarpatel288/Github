@@ -1,6 +1,7 @@
 package com.omniwyse.github.pojos
 
 
+import android.annotation.SuppressLint
 import com.google.gson.annotations.SerializedName
 import androidx.annotation.Keep
 import kotlinx.android.parcel.Parcelize

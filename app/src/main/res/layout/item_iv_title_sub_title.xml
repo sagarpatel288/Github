@@ -4,6 +4,11 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <!--region Why an additional parent?-->
+    <!--An additional parent layout makes sure that irrespective of
+    margin and padding settings, we get full area for common operations
+     per cell/row such as ripple effect-->
+    <!--endregion-->
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/lytItemParent"
         android:layout_width="match_parent"
