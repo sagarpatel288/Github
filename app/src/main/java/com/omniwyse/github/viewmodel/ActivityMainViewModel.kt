@@ -4,4 +4,5 @@ import com.example.android.common.baseviewmodels.BaseViewModel
 
 class ActivityMainViewModel : BaseViewModel() {
 
+
 }
