@@ -2,10 +2,11 @@ package com.omniwyse.github.pojos
 
 
 import android.annotation.SuppressLint
-import com.google.gson.annotations.SerializedName
-import androidx.annotation.Keep
-import kotlinx.android.parcel.Parcelize
 import android.os.Parcelable
+import androidx.annotation.Keep
+import com.google.gson.annotations.SerializedName
+import kotlinx.android.parcel.Parcelize
+import java.text.SimpleDateFormat
 
 @SuppressLint("ParcelCreator")
 @Parcelize
@@ -14,7 +15,7 @@ data class GitHubUser(
     @SerializedName("avatar_url")
     var avatarUrl: String? = null, // https://avatars0.githubusercontent.com/u/1?v=4
     @SerializedName("bio")
-    var bio: Any? = null, // null
+    var bio: String? = null, // null
     @SerializedName("blog")
     var blog: String? = null, // http://tom.preston-werner.com
     @SerializedName("company")
@@ -22,7 +23,7 @@ data class GitHubUser(
     @SerializedName("created_at")
     var createdAt: String? = null, // 2007-10-20T05:24:19Z
     @SerializedName("email")
-    var email: Any? = null, // null
+    var email: String? = null, // null
     @SerializedName("events_url")
     var eventsUrl: String? = null, // https://api.github.com/users/mojombo/events{/privacy}
     @SerializedName("followers")
@@ -38,7 +39,7 @@ data class GitHubUser(
     @SerializedName("gravatar_id")
     var gravatarId: String? = null,
     @SerializedName("hireable")
-    var hireable: Any? = null, // null
+    var hireable: String? = null, // null
     @SerializedName("html_url")
     var htmlUrl: String? = null, // https://github.com/mojombo
     @SerializedName("id")
@@ -75,4 +76,16 @@ data class GitHubUser(
     var updatedAt: String? = null, // 2020-11-14T01:39:55Z
     @SerializedName("url")
     var url: String? = null // https://api.github.com/users/mojombo
-) : Parcelable
+) : Parcelable {
+    @SuppressLint("SimpleDateFormat")
+    fun getCreatedDateAsString(): String? {
+        val formatter = SimpleDateFormat("dd MMMM yyyy, hh:mm:ss");
+        return formatter.format(createdAt)
+    }
+
+    @SuppressLint("SimpleDateFormat")
+    fun getUpdatedDateAsString(): String? {
+        val formatter = SimpleDateFormat("dd MMMM yyyy, hh:mm:ss");
+        return formatter.format(updatedAt)
+    }
+}

@@ -1,10 +1,16 @@
-package com.omniwyse.github.di.network
+package com.omniwyse.github.di.datasource
 
 import android.util.Log
 import com.example.android.common.baseconstants.StaticConstants
-import com.example.android.common.networking.AuthInterceptor
+import com.example.android.common.basenetworking.BaseResponseHandler
 import com.google.gson.GsonBuilder
+import com.omniwyse.github.BuildConfig
 import com.omniwyse.github.api.GitHubApi
+import com.omniwyse.github.domain.api.GithubApiClient
+import com.omniwyse.github.domain.api.GithubApiClientImpl
+import com.omniwyse.github.networking.AuthInterceptor
+import com.omniwyse.github.repository.Repository
+import com.omniwyse.github.repository.UsersListDataSourceFactory
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import org.koin.dsl.module
@@ -24,7 +30,7 @@ import retrofit2.converter.gson.GsonConverterFactory
  * @author srdpatel
  * @since 1.0
  */
-val networkModule = module {
+val repositoryModule = module {
 
     single {
         AuthInterceptor()
@@ -59,13 +65,33 @@ val networkModule = module {
      * [Parameterized Injection](https://github.com/InsertKoinIO/koin/blob/master/koin-projects/docs/reference/koin-core/injection-parameters.md "Parameterized Injection")
      * @since 1.0
      */
-    single { (baseUrl: String, apiInterface: Class<*>) ->
+    /*single { (baseUrl: String, apiInterface: Class<*>) ->
         getApiService(baseUrl, get(), apiInterface)
     }
 
     single { (apiInterface: Class<*>) ->
         getApiService(get(), apiInterface)
+    }*/
+
+    single {
+        Repository()
     }
+
+    single {
+        UsersListDataSourceFactory(get())
+    }
+
+    single<GithubApiClient> { GithubApiClientImpl(get()) }
+
+    /**
+     * 12/27/2020 12:50
+     * Factory instead of single because We need new instances every time.
+     *  []
+     * @author srdpatel
+     * @see <a href="http://google.com"></a>
+     * @since 1.0
+     */
+    factory { BaseResponseHandler() }
 }
 
 fun getApiService(retrofit: Retrofit): GitHubApi =
@@ -105,8 +131,11 @@ fun getOkHttpClient(
     authInterceptor: AuthInterceptor,
     loggingInterceptor: HttpLoggingInterceptor
 ): OkHttpClient {
-    return OkHttpClient().newBuilder().addInterceptor(authInterceptor)
-        .addInterceptor(loggingInterceptor).build()
+    return OkHttpClient().newBuilder().addInterceptor(authInterceptor).also {
+        if (BuildConfig.DEBUG) {
+            it.addInterceptor(loggingInterceptor)
+        }
+    }.build()
 }
 
 /**
@@ -120,7 +149,7 @@ fun getHttpLoggingInterceptor(): HttpLoggingInterceptor {
     //Learn more about apply (kotlin-stdlib higher order functions): https://www.journaldev.com/19467/kotlin-let-run-also-apply-with
     return HttpLoggingInterceptor(object : HttpLoggingInterceptor.Logger {
         override fun log(message: String) {
-            Log.e("SERVER", message)
+            Log.e(" :API_CALL: ", message)
         }
     }).apply {
         level = HttpLoggingInterceptor.Level.BODY

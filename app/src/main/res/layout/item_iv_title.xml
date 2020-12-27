@@ -23,6 +23,8 @@
             android:id="@+id/v_lay_cl_content_container"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:paddingTop="@dimen/com_dim_view_space_10"
+            android:paddingBottom="@dimen/com_dim_view_space_10"
             android:paddingStart="@dimen/com_dim_app_space"
             android:paddingLeft="@dimen/com_dim_app_space"
             android:paddingEnd="@dimen/com_dim_app_space"
@@ -48,34 +50,22 @@
 
             <TextView
                 android:id="@+id/v_tv_title"
-                style="@style/TvTitle.Beside"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                style="@style/TvTitle"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0"
                 app:layout_constraintLeft_toRightOf="@id/v_civ"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintStart_toEndOf="@id/v_civ"
                 app:layout_constraintTop_toTopOf="@+id/v_civ"
-                />
-
-            <!--region Alignments-->
-            <!--Starting point is aligned with @v_tv_title and end alignment
-            is with respect to parent-->
-            <!--endregion-->
-            <TextView
-                android:id="@+id/v_tv_sub_title"
-                style="@style/TvSubtitle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="@dimen/com_dim_view_space_10"
-                android:layout_marginRight="@dimen/com_dim_view_space_10"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0"
-                app:layout_constraintLeft_toLeftOf="@id/v_tv_title"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintStart_toStartOf="@id/v_tv_title"
-                app:layout_constraintTop_toBottomOf="@id/v_tv_title"
+                app:layout_constraintBottom_toBottomOf="@id/v_civ"
+                android:layout_marginStart="@dimen/view_space_10"
+                android:layout_marginLeft="@dimen/view_space_10"
+                android:layout_marginEnd="@dimen/view_space_10"
+                android:layout_marginRight="@dimen/view_space_10"
+                android:gravity="start|center_vertical"
+                tools:text="@string/app_name"
                 />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
