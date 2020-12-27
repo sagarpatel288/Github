@@ -10,7 +10,7 @@ import android.os.Parcelable
 @SuppressLint("ParcelCreator")
 @Parcelize
 @Keep
-data class User(
+data class GitHubUser(
     @SerializedName("avatar_url")
     var avatarUrl: String? = null, // https://avatars0.githubusercontent.com/u/1?v=4
     @SerializedName("bio")

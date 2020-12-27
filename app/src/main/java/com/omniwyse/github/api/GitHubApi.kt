@@ -1,6 +1,6 @@
 package com.omniwyse.github.api
 
-import com.omniwyse.github.pojos.User
+import com.omniwyse.github.pojos.GitHubUser
 import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Path
@@ -13,11 +13,11 @@ interface GitHubApi {
     suspend fun getUsersList(
         @Query("since") since: Int,
         @Query("per_page") itemsPerPage: Int
-    ): Response<List<User>>
+    ): List<GitHubUser>
 
     /*https://api.github.com/users/sagarpatel288*/
     @GET("users/{username}")
     suspend fun getUserInfo(
         @Path("username") username: String
-    ): Response<User>
+    ): Response<GitHubUser>
 }
