@@ -1,4 +1,2 @@
-include ':commons'
 include ':app'
-project(':commons').projectDir = new File(rootDir, 'Common/app/')
 rootProject.name = "Github"

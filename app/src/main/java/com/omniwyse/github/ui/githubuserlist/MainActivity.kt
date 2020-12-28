@@ -4,6 +4,7 @@ import android.content.Intent
 import android.view.View
 import androidx.databinding.ViewDataBinding
 import androidx.lifecycle.Transformations
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.android.common.baseconstants.PARCEL
@@ -38,6 +39,7 @@ class MainActivity :
         } else {
             showNoInternetUi()
         }
+        dataBinding.btnToggl.setOnClickListener { view -> onClickToggle(view) }
     }
 
     override fun onNetworkStateChange(hasInternet: Boolean) {
@@ -66,18 +68,24 @@ class MainActivity :
                     BaseState.LOADING -> {
                         viewModel.isWaiting.set(true)
                         viewModel.errorMessage.set(null)
+                        dataBinding.btnToggl.visibility = View.GONE
                     }
                     BaseState.SUCCESS -> {
                         viewModel.isWaiting.set(false)
                         viewModel.errorMessage.set(null)
+                        dataBinding.btnToggl.visibility = View.VISIBLE
                     }
                     BaseState.EMPTY -> {
                         viewModel.isWaiting.set(false)
                         viewModel.errorMessage.set(getString(R.string.com_st_error_empty_data))
+                        dataBinding.btnToggl.visibility = View.GONE
+                        retry()
                     }
                     else -> {
                         viewModel.isWaiting.set(false)
                         viewModel.errorMessage.set(getString(R.string.com_st_error_something_went_wrong))
+                        dataBinding.btnToggl.visibility = View.GONE
+                        retry()
                     }
                 }
             })
@@ -88,8 +96,13 @@ class MainActivity :
             })
 
         viewModel.usersLiveData.observe(this, {
+            dataBinding.btnToggl.visibility = if (it.size > 0) View.VISIBLE else View.GONE
             usersListAdapter.submitList(it)
         })
+    }
+
+    private fun retry() {
+
     }
 
     private fun setListView() {
@@ -103,5 +116,14 @@ class MainActivity :
         var intent = Intent(this, DetailActivity::class.java)
         intent.putExtra(PARCEL, gitHubUser.login)
         startActivity(intent)
+    }
+
+    fun onClickToggle(view: View) {
+        if (listView.layoutManager is GridLayoutManager) {
+            listView.layoutManager = LinearLayoutManager(this)
+        } else if (listView.layoutManager is LinearLayoutManager) {
+            listView.layoutManager = GridLayoutManager(this, 2)
+        }
+        listView.adapter = usersListAdapter
     }
 }   

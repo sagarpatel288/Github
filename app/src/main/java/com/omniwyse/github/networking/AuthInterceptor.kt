@@ -18,7 +18,7 @@ class AuthInterceptor() : Interceptor {
         requestBuilder.addHeader(
             "Authorization",
             Credentials.basic("sagarpatel288",
-            "8752c13d429ebe2e2d05b40bd778d22bc81aa538")
+            "4060f3c9c86886c2c454674efbab26085c304bb3")
             /*Credentials.basic(BuildConfig.USER_NAME, BuildConfig.TOKEN)*/
         )
         return chain.proceed(requestBuilder.build())

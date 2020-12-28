@@ -25,7 +25,7 @@ class UsersListAdapter(private val listener: UsersListAdapterInteraction) :
     }
 
     inner class UsersListViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val userItem: ConstraintLayout = itemView.findViewById(R.id.v_lay_cl_content_container)
+        val userItem: ConstraintLayout = itemView.findViewById(R.id.v_lay_cl_parent)
         val userImage: ImageView = itemView.findViewById(R.id.v_civ)
         val userName: AppCompatTextView = itemView.findViewById(R.id.v_tv_title)
     }
