@@ -126,5 +126,4 @@ class MainActivity :
         }
         listView.adapter = usersListAdapter
     }
-
 }   
