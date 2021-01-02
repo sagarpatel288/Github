@@ -1,5 +1,6 @@
 package com.omniwyse.github.networking
 
+import com.omniwyse.github.BuildConfig
 import okhttp3.Credentials
 import okhttp3.Interceptor
 import okhttp3.Response
@@ -17,8 +18,9 @@ class AuthInterceptor() : Interceptor {
 //        request = request.newBuilder().url(url).build()
         requestBuilder.addHeader(
             "Authorization",
-            Credentials.basic("sagarpatel288",
-            "4060f3c9c86886c2c454674efbab26085c304bb3")
+            Credentials.basic(
+                BuildConfig.GITHUB_USERNAME,
+            BuildConfig.GITHUB_PASSWORD)
             /*Credentials.basic(BuildConfig.USER_NAME, BuildConfig.TOKEN)*/
         )
         return chain.proceed(requestBuilder.build())

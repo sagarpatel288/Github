@@ -20,6 +20,8 @@ android {
         multiDexEnabled true
         vectorDrawables.useSupportLibrary = true
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        buildConfigField("String", "GITHUB_USERNAME", GITHUB_USERNAME)
+        buildConfigField("String", "GITHUB_PASSWORD", GITHUB_PASSWORD)
     }
 
     buildFeatures {
@@ -29,6 +31,11 @@ android {
     }
 
     buildTypes {
+
+        buildTypes.each {
+            it.buildConfigField 'String', 'GITHUB_USERNAME', GITHUB_USERNAME
+            it.buildConfigField 'String', 'GITHUB_PASSWORD', GITHUB_PASSWORD
+        }
 
         debug {
             // https://developer.android.com/studio/build/optimize-your-build#disable_crunching
@@ -40,6 +47,9 @@ android {
             /*FirebasePerformance {
                 instrumentationEnabled false
             }*/
+
+            buildConfigField "String", "GITHUB_USERNAME", '"{some string}"'
+            buildConfigField "String", "GITHUB_PASSWORD", '"{some string}"'
         }
 
         release {
