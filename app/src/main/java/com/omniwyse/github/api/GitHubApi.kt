@@ -19,4 +19,5 @@ interface GitHubApi {
     suspend fun getUserInfo(
         @Path("username") username: String
     ): Response<GitHubUser>
+    
 }
