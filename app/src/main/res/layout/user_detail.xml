@@ -9,7 +9,7 @@
 
         <variable
             name="viewModel"
-            type="com.omniwyse.github.viewmodel.SingleUserViewModel" />
+            type="com.srdp.github.viewmodel.SingleUserViewModel" />
     </data>
 
     <LinearLayout xmlns:app="http://schemas.android.com/apk/res-auto"

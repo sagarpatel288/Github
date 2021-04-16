@@ -1,9 +1,10 @@
 plugins {
     id 'com.android.application'
     id 'kotlin-android'
-    id 'kotlin-android-extensions'
+//    id 'kotlin-android-extensions'
     //To enable the kotlin annotation processor tool and data binding apply plugin: ‘kotlin-kapt’ to the top of the app gradle file
     id 'kotlin-kapt'
+    id 'kotlin-parcelize'
 }
 
 
@@ -12,7 +13,7 @@ android {
     buildToolsVersion "30.0.3"
 
     defaultConfig {
-        applicationId "com.omniwyse.github"
+        applicationId "com.srdp.github"
         minSdkVersion 21
         targetSdkVersion 30
         versionCode 1

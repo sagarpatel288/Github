@@ -10,7 +10,7 @@
 
         <variable
             name="viewModel"
-            type="com.omniwyse.github.viewmodel.UsersListViewModel" />
+            type="com.srdp.github.viewmodel.UsersListViewModel" />
 
     </data>
 
