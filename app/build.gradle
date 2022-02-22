@@ -21,6 +21,14 @@ android {
         multiDexEnabled true
         vectorDrawables.useSupportLibrary = true
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        javaCompileOptions {
+            annotationProcessorOptions {
+                arguments += [
+                        "room.schemaLocation":"$projectDir/schemas".toString(),
+                        "room.incremental":"true",
+                        "room.expandProjection":"true"]
+            }
+        }
         buildConfigField("String", "GITHUB_USERNAME", GITHUB_USERNAME)
         buildConfigField("String", "GITHUB_PASSWORD", GITHUB_PASSWORD)
     }
@@ -43,7 +51,12 @@ android {
             // https://blog.mindorks.com/speed-up-gradle-build-for-android-to-save-your-time
             // Disables PNG crunching on DEBUG build type
             crunchPngs false // Enabled by default for RELEASE build type
-
+            // Avoids compiling unnecessary resources
+            resConfigs "en", "xxhdpi"
+            // If you don't need to run a Crashlytics report, speed up your debug builds by disabling the plugin as follows:
+            ext.enableCrashlytics = false
+            // To prevent Crashlytics from automatically updating its build ID, add the following to your build.gradle file:
+            ext.alwaysUpdateBuildId = false
             // https://dev.to/joshuadeguzman/speed-up-your-android-project-s-gradle-builds-1366?signin=true
             /*FirebasePerformance {
                 instrumentationEnabled false
@@ -94,6 +107,7 @@ android {
     if (project.hasProperty('devBuild')) {
         splits.abi.enable = false
         splits.density.enable = false
+        aaptOptions.cruncherEnabled = false
     }
 
     compileOptions {
@@ -152,6 +166,7 @@ dependencies {
     // Room
     implementation "androidx.room:room-runtime:$room_version"
     kapt "androidx.room:room-compiler:$room_version"
+    annotationProcessor "androidx.room:room-compiler:$room_version"
     // For Kotlin use kapt instead of annotationProcessor
     // optional - Kotlin Extensions and Coroutines support for Room
     implementation "androidx.room:room-ktx:$room_version"
